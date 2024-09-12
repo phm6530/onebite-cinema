@@ -1,0 +1,15 @@
+.header {
+  padding: 1rem 0;
+
+  .logo {
+    font-size: 1.5rem;
+    color: $color-red-signiture;
+    cursor: pointer;
+  }
+
+  .logoAlignItems {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

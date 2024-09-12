@@ -1,0 +1,22 @@
+.searchForm {
+  display: flex;
+  gap: 10px;
+  background: transparent;
+  input {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 0;
+    outline: 1px solid rgba(245, 245, 245, 0.322);
+    &:focus {
+      outline: 1px solid rgba(245, 245, 245, 1);
+    }
+  }
+  button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.searchFormWrapper {
+  margin-bottom: 1rem;
+}

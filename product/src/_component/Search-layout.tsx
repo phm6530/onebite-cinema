@@ -5,7 +5,7 @@ import classes from "./Search-layout.module.scss";
 
 export default function SearchLayout({ children }: { children: ReactNode }) {
   const q = useSearchParams();
-  const [value, setValue] = useState(q.get("q") || "");
+  const [value, setValue] = useState<string>(q.get("q") || "");
   const router = useRouter();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,8 +15,9 @@ export default function SearchLayout({ children }: { children: ReactNode }) {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(value !== "" ? `/search?q=${value}` : "/search");
+    router.push(value !== "" ? `/search?q=${value}` : "/");
   };
+
   return (
     <>
       <div className={classes.searchFormWrapper}>

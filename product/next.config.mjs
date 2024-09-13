@@ -7,6 +7,9 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["media.themoviedb.org"], // 허용할 이미지 도메인을 추가
+  },
   sassOptions: {
     // 이거 이제 루트경로됨
     includePaths: [path.join(__dirname, "src/app/styles")],

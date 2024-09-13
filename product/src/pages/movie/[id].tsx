@@ -1,19 +1,64 @@
-import { useRouter } from "next/router";
+import dummyMoive from "@/dummy.json";
+import { MovieData } from "../../../type/moive";
+import classes from "./[id].module.scss";
+import Image from "next/image";
 
 export const getServerSideProps = async ({
   params,
 }: {
   params: { id: string };
 }) => {
-  const { id } = params; // URL에서 id를 추출
+  const { id } = params;
 
+  const item = dummyMoive.find((e: MovieData) => e.id === +id);
+  if (!item) {
+    return {
+      notFound: true,
+    };
+  }
+  console.log(item);
   return {
-    props: { id }, // Page 컴포넌트에 데이터를 전달
+    props: { item },
   };
 };
 
-export default function MovieDetail() {
-  const router = useRouter();
-  const { id } = router.query;
-  return <>Movie : {id}</>;
+export default function MovieDetail({ item }: { item: MovieData }) {
+  const {
+    title,
+    description,
+    releaseDate,
+    company,
+    genres,
+    subTitle,
+    runtime,
+    posterImgUrl,
+  } = item;
+
+  return (
+    <>
+      <div
+        className={`${classes.imgContainer}`}
+        style={{ backgroundImage: `url(${posterImgUrl})` }}
+      >
+        <div className={classes.imgWrap}>
+          <Image
+            src={posterImgUrl}
+            fill
+            alt={title}
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+      </div>
+      <div className={classes.summryContainer}>
+        <h2>{title}</h2>
+        <p>
+          {releaseDate} / {genres.join(", ")} / {runtime}분
+        </p>
+        <p>{company}</p>
+        <h3>{subTitle}</h3>
+
+        <p>{description}</p>
+      </div>
+    </>
+  );
 }

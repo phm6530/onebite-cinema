@@ -1,7 +1,7 @@
-import dummyMoive from "@/dummy.json";
-import { MovieData } from "../../../type/moive";
 import classes from "./[id].module.scss";
 import Image from "next/image";
+import { fetchDetailMovie } from "@/lib/fetch-movie";
+import { InferGetServerSidePropsType } from "next";
 
 export const getServerSideProps = async ({
   params,
@@ -10,19 +10,38 @@ export const getServerSideProps = async ({
 }) => {
   const { id } = params;
 
-  const item = dummyMoive.find((e: MovieData) => e.id === +id);
-  if (!item) {
+  try {
+    const item = await fetchDetailMovie(id);
+
+    if (!item) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
-      notFound: true,
+      props: { item },
+    };
+  } catch (error) {
+    // 서버 오류에 대한 사용자 피드백 제공
+    return {
+      props: { error: "서버가 응답하지 않습니다. 잠시 후 다시 시도해주세요." },
     };
   }
-  console.log(item);
-  return {
-    props: { item },
-  };
 };
 
-export default function MovieDetail({ item }: { item: MovieData }) {
+export default function MovieDetail({
+  item,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!item) {
+    return <div>영화를 찾을 수 없습니다.</div>;
+  }
+
   const {
     title,
     description,
@@ -54,7 +73,7 @@ export default function MovieDetail({ item }: { item: MovieData }) {
         <p>
           {releaseDate} / {genres.join(", ")} / {runtime}분
         </p>
-        <p>{company}</p>
+        <p className={classes.company}>{company}</p>
         <h3>{subTitle}</h3>
 
         <p>{description}</p>

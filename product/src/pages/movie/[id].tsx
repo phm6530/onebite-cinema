@@ -54,7 +54,7 @@ export default function MovieDetail({ item }: { item: MovieData }) {
         <p>
           {releaseDate} / {genres.join(", ")} / {runtime}분
         </p>
-        <p>{company}</p>
+        <p className={classes.company}>{company}</p>
         <h3>{subTitle}</h3>
 
         <p>{description}</p>

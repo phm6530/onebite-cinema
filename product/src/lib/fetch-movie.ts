@@ -20,6 +20,11 @@ export const fetchSearchMovie = async (keyword: string) => {
 
   //로딩 인디케이터 테스트
   await new Promise((resolve) => setTimeout(resolve, 3000));
-
   return withFetch<MovieData[]>(() => fetch(url));
+};
+
+//영화 디테일정보
+export const fetchDetailMovie = async (id: string) => {
+  const url = `${BASE_URL}/movie/${id}`;
+  return withFetch<MovieData>(() => fetch(url));
 };

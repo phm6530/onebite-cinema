@@ -1,46 +1,42 @@
 import classes from "./[id].module.scss";
 import Image from "next/image";
-import { fetchDetailMovie } from "@/lib/fetch-movie";
-import { InferGetServerSidePropsType } from "next";
+import { fetchAllMovies, fetchDetailMovie } from "@/lib/fetch-movie";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
+import { MovieData } from "../../../type/moive";
 
-export const getServerSideProps = async ({
-  params,
-}: {
-  params: { id: string };
-}) => {
-  const { id } = params;
+export const getStaticPaths = async () => {
+  const movieDatas = await fetchAllMovies();
+  const movieParams = movieDatas.map((mv) => {
+    return { params: { id: mv.id + "" } };
+  });
 
+  return {
+    paths: movieParams,
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   try {
-    const item = await fetchDetailMovie(id);
-
-    if (!item) {
-      return {
-        notFound: true,
-      };
-    }
+    const { id } = context.params!;
+    const movieDetail: MovieData = await fetchDetailMovie(id as string);
 
     return {
-      props: { item },
+      props: { movieDetail },
     };
   } catch (error) {
-    // 서버 오류에 대한 사용자 피드백 제공
     return {
-      props: { error: "서버가 응답하지 않습니다. 잠시 후 다시 시도해주세요." },
+      notFound: true,
     };
   }
 };
 
 export default function MovieDetail({
-  item,
-  error,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  if (!item) {
-    return <div>영화를 찾을 수 없습니다.</div>;
-  }
+  movieDetail,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+  if (router.isFallback) return "Loading....";
 
   const {
     title,
@@ -51,7 +47,7 @@ export default function MovieDetail({
     subTitle,
     runtime,
     posterImgUrl,
-  } = item;
+  } = movieDetail as MovieData;
 
   return (
     <>

@@ -17,9 +17,6 @@ export const fetchRecommendedMovies = async (): Promise<MovieData[]> => {
 // 영화 검색
 export const fetchSearchMovie = async (keyword: string) => {
   const url = `${BASE_URL}/movie/search?q=${keyword}`;
-
-  //로딩 인디케이터 테스트
-  await new Promise((resolve) => setTimeout(resolve, 3000));
   return withFetch<MovieData[]>(() => fetch(url));
 };
 

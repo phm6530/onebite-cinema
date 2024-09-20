@@ -16,6 +16,15 @@ export async function getStaticProps() {
   const allMovieData =
     allMovieResult.status === "fulfilled" ? allMovieResult.value : [];
 
+  if (
+    recoResult.status === "rejected" ||
+    allMovieResult.status === "rejected"
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       recoData,

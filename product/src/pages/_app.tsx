@@ -21,7 +21,8 @@ export default function App({ Component, pageProps }: AppPropsTypes) {
       {/* 전역 메타 */}
       <Head>
         <title>한입 시네마</title>
-        <meta name="description" content="한입 시네마" />
+        <meta property="og:image" content="/thumbnail.jpg" />
+        <meta property="og:description" content="한입 시네마" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 

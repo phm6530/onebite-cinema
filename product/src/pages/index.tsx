@@ -30,6 +30,7 @@ export async function getStaticProps() {
       recoData,
       allMovieData,
     },
+    revaildate: 3,
   };
 }
 

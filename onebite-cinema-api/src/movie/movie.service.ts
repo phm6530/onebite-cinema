@@ -20,6 +20,7 @@ export class MovieService {
   }
 
   async findAllMovies() {
+    console.log('test');
     return await this.prisma.movie.findMany({
       select: prismaExclude('Movie', ['searchIndex']),
     });

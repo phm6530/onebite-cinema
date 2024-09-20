@@ -15,7 +15,7 @@ const MetaHead: React.FC<MetaheadProps> = ({
     <Head>
       <title>{title || "한입 시네마"}</title>
       <meta property="og:title" content={title || "한입 시네마"} />
-      <meta property="og:image" content={thumbNail || "/thumbnail.jpg"} />
+      <meta property="og:image" content={thumbNail || "/thumbnail.png"} />
       <meta property="og:description" content={description || "한입 시네마"} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>

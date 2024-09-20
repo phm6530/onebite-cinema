@@ -4,6 +4,7 @@ import { fetchAllMovies, fetchDetailMovie } from "@/lib/fetch-movie";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import { MovieData } from "../../../type/moive";
+import MetaHead from "@/_component/meta-head";
 
 export const getStaticPaths = async () => {
   const movieDatas = await fetchAllMovies();
@@ -36,7 +37,14 @@ export default function MovieDetail({
   movieDetail,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
-  if (router.isFallback) return "Loading....";
+  if (router.isFallback) {
+    return (
+      <>
+        <MetaHead />
+        Loading....
+      </>
+    );
+  }
 
   const {
     title,
@@ -51,6 +59,13 @@ export default function MovieDetail({
 
   return (
     <>
+      {/* Meta */}
+      <MetaHead
+        title={title}
+        thumbNail={posterImgUrl}
+        description={`${description.slice(0, 100)}...`}
+      />
+
       <div
         className={`${classes.imgContainer}`}
         style={{ backgroundImage: `url(${posterImgUrl})` }}

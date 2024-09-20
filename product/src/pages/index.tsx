@@ -5,6 +5,7 @@ import { fetchAllMovies, fetchRecommendedMovies } from "@/lib/fetch-movie";
 import MovieItem from "@/_component/movie-item";
 import { InferGetServerSidePropsType } from "next";
 import { MovieData } from "../../type/moive";
+import MetaHead from "@/_component/meta-head";
 
 export async function getStaticProps() {
   const [recoResult, allMovieResult] = await Promise.allSettled([
@@ -40,6 +41,8 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
   return (
     <>
+      <MetaHead />
+
       <section className={classes.section}>
         {/* 추천영화 */}
         <h3>지금 가장 추천하는 영화</h3>

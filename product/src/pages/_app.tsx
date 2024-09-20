@@ -3,7 +3,6 @@ import "@/styles/globals.scss";
 import GlobalLayout from "@/_component/Global-layout/global-layout";
 import { ReactNode } from "react";
 import QueryClientConfig from "@/config/queryClient";
-import MetaHead from "@/_component/meta-head";
 
 type AppPropsTypes = AppProps & {
   Component: { globalLayout: (page: ReactNode) => ReactNode };
@@ -18,9 +17,6 @@ export default function App({ Component, pageProps }: AppPropsTypes) {
 
   return (
     <>
-      {/* 전역 메타 */}
-      <MetaHead />
-
       <GlobalLayout>
         {globalLayout(
           <QueryClientConfig>

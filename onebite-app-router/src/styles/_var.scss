@@ -1,0 +1,20 @@
+$color-red-1: rgb(229, 9, 20);
+
+$color-white-1: #ffffff;
+$color-white-2: #ededed;
+$color-white-3: rgba(255, 255, 255, 0.3);
+
+$color-black-1: #0a0a0a;
+$color-black-2: #000000;
+$color-black-3: rgba(0, 0, 0, 0.3);
+
+$mode-colors: (
+  standard: (
+    text: $color-black-1,
+    background: $color-white-2,
+  ),
+  darkmode: (
+    text: $color-white-2,
+    background: $color-black-2,
+  ),
+);

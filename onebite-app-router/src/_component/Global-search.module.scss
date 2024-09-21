@@ -1,0 +1,34 @@
+.form {
+  display: flex;
+  gap: 20px;
+
+  input {
+    background: transparent;
+    outline: none;
+    @include mode-color("color", "text", true);
+    flex: 1;
+    text-indent: 0.5rem;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 50px;
+    &:focus {
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+  }
+  button {
+    padding: 10px 20px;
+    background: rgba(95, 95, 95, 0.5);
+    &:hover {
+      background-color: lighten(rgba(95, 95, 95, 0.5), 20);
+    }
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+}
+.searchWrap {
+  margin-bottom: 40px;
+}

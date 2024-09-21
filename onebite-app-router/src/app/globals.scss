@@ -1,0 +1,30 @@
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-pretendard);
+
+  @include mode-color("color", "text");
+  @include mode-color("background", "background");
+}
+
+.enable-transition {
+  transition: color 1s ease, background 1s ease;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+button {
+  outline: none;
+  border: 0;
+  font-family: var(--font-pretendard);
+}

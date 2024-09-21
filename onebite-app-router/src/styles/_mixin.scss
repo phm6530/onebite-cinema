@@ -1,0 +1,23 @@
+//color
+@function get-color($key, $type: "standard") {
+  @each $name, $color in map-get($mode-colors, $type) {
+    @if ($key == $name) {
+      @return $color;
+    }
+  }
+  @return null;
+}
+
+@mixin mode-color($property, $key, $apply-transition: false) {
+  //Default
+  #{$property}: get-color($key);
+
+  @if $apply-transition {
+    transition: #{$property} 1s ease;
+  }
+
+  //DarkMode
+  @at-root [data-theme="dark"] & {
+    #{$property}: get-color($key, darkmode);
+  }
+}

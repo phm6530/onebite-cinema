@@ -1,0 +1,12 @@
+.logo {
+  color: $color-red-1;
+  font-weight: 800;
+  font-size: 20px;
+  padding: 20px 0;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

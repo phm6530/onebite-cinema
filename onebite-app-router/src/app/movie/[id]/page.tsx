@@ -3,7 +3,15 @@ type MoviePageProps = {
 };
 
 const MoviePage: React.FC<MoviePageProps> = ({ params }) => {
-  return <>{params.id}</>;
+  if (isNaN(Number(params.id))) {
+    return <>잘못된 접근 입니다.</>;
+  }
+
+  return (
+    <>
+      <h1>{params.id} 영화 상세페이지 </h1>
+    </>
+  );
 };
 
 export default MoviePage;

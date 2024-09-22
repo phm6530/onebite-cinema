@@ -1,5 +1,3 @@
-import SearchLayout from "@/_component/Search-layout";
-import { ReactNode } from "react";
 import classes from "./home.module.scss";
 import { fetchAllMovies, fetchRecommendedMovies } from "@/lib/fetch-movie";
 import MovieItem from "@/_component/movie-item";
@@ -73,7 +71,3 @@ export default function Home({
     </>
   );
 }
-
-Home.globalLayout = (page: ReactNode) => {
-  return <SearchLayout>{page}</SearchLayout>;
-};

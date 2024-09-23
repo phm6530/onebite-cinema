@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import classes from "./Global-search.module.scss";
 
+// 미리완료 했었네요.. PR을 위한 주석
 const SearchBar = () => {
   const router = useRouter();
   const qs = useSearchParams();

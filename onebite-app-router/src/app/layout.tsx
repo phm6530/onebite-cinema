@@ -20,7 +20,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${pretendard.variable}`}>
         <ThemeProvider attribute="data-theme">
           <Grid.center>

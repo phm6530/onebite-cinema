@@ -18,6 +18,6 @@
 
   //DarkMode
   @at-root [data-theme="dark"] & {
-    #{$property}: get-color($key, darkmode);
+    #{$property}: get-color($key, DarkMode);
   }
 }

@@ -3,22 +3,7 @@ import classes from "./HomePage.module.scss";
 import { MovieData } from "@/type/movie";
 import MoiveItem from "@/app/(with-searchbar)/_component/MovieItem";
 import ClickComponent from "@/_component/ClickComponent";
-
-const withFetch = async <T,>(cb: () => Promise<Response>): Promise<T> => {
-  try {
-    const response = await cb();
-    if (!response.ok) {
-      throw new Error(`HTTP 오류: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
-    } else {
-      throw new Error("알 수 없는 에러");
-    }
-  }
-};
+import { withFetch } from "@/lib/fetch";
 
 // 추천
 const RecoBooks = async () => {
@@ -54,7 +39,7 @@ const AllBooks = async () => {
 
   return (
     <div>
-      <h3>지금 가장 추천하는 영화</h3>
+      <h3>등록된 모든 영화</h3>
       <div className={classes.allList}>
         {!!datas
           ? datas.map((movie) => {

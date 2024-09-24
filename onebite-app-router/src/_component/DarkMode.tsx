@@ -1,37 +1,29 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect } from "react";
 import classes from "./DarkMode.module.scss";
+import { useTheme } from "next-themes";
 
 const transition = "color 1s ease, background 1s ease";
 export default function ThemeToggleButton() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    return !!localStorage.getItem("darkMode") || false;
-  });
+  const { theme, setTheme } = useTheme();
 
+  // //트랜지션 반영
   useEffect(() => {
     document.body.style.transition = transition;
   }, []);
-
-  useLayoutEffect(() => {
-    if (isDarkMode) {
-      localStorage.setItem("darkMode", "true");
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
-      localStorage.removeItem("darkMode");
-      document.documentElement.removeAttribute("data-theme");
-    }
-  }, [isDarkMode]);
 
   return (
     <>
       <button
         className={classes.toggleBtn}
         type="button"
-        onClick={() => setIsDarkMode((prev) => !prev)}
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       >
         다크모드{" "}
-        <span className={classes.status}>{isDarkMode ? "on" : "off"}</span>
+        {/* <span className={classes.status}>
+          {theme === "dark" ? "on" : "off"}
+        </span> */}
       </button>
     </>
   );

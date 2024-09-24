@@ -4,6 +4,7 @@ import "./globals.scss";
 import Grid from "@/_component/Grid";
 import GlobalNav from "@/_component/global-nav";
 import { ReactNode } from "react";
+import { ThemeProvider } from "@/_component/theme-provider";
 
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
@@ -19,12 +20,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="ko" suppressHydrationWarning>
       <body className={`${pretendard.variable}`}>
-        <Grid.center>
-          <GlobalNav />
-          {children}
-        </Grid.center>
+        <ThemeProvider attribute="data-theme">
+          <Grid.center>
+            <GlobalNav />
+            {children}
+          </Grid.center>
+        </ThemeProvider>
       </body>
     </html>
   );

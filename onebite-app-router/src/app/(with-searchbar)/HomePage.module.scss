@@ -1,0 +1,23 @@
+.movieList {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.mainWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.recoList {
+  @extend .movieList;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.allList {
+  @extend .movieList;
+  // 5개씩
+  grid-template-columns: repeat(5, 1fr);
+}

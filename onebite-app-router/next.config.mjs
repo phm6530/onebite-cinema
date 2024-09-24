@@ -7,6 +7,9 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["media.themoviedb.org"],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "src/app/styles")],
     prependData: `

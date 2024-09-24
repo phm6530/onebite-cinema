@@ -27,9 +27,9 @@ const RecoBooks = async () => {
   });
 
   return (
-    <>
+    <div>
       <h3>지금 가장 추천하는 영화</h3>
-      <div className={classes.movieList}>
+      <div className={classes.recoList}>
         {!!test
           ? test.map((movie) => {
               return (
@@ -40,42 +40,43 @@ const RecoBooks = async () => {
                 </ClickComponent>
               );
             })
-          : "에러"}
+          : "문제가 있습니다."}
       </div>
-    </>
+    </div>
   );
 };
 
 // 전체
 const AllBooks = async () => {
-  const test = await withFetch<MovieData[]>(async () => {
+  const datas = await withFetch<MovieData[]>(async () => {
     return fetch(`${BASE_URL}/movie`);
   });
 
   return (
-    <>
+    <div>
       <h3>지금 가장 추천하는 영화</h3>
-      <div className={classes.movieList}>
-        {!!test
-          ? test.map((movie) => {
+      <div className={classes.allList}>
+        {!!datas
+          ? datas.map((movie) => {
               return (
-                <div>
-                  <img src={movie.posterImgUrl} />
-                </div>
+                <ClickComponent id={movie.id}>
+                  {/* server */}
+                  <MoiveItem {...movie} />
+                </ClickComponent>
               );
             })
-          : "에러"}
+          : "문제가 있습니다."}
       </div>
-    </>
+    </div>
   );
 };
 
 const Home = async () => {
   return (
-    <>
+    <div className={classes.mainWrap}>
       <RecoBooks />
       <AllBooks />
-    </>
+    </div>
   );
 };
 

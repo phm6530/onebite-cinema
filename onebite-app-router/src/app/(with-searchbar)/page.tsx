@@ -16,10 +16,10 @@ const RecoBooks = async () => {
       <h3>지금 가장 추천하는 영화</h3>
       <div className={classes.recoList}>
         {!!test
-          ? test.map((movie) => {
+          ? test.map((movie, idx) => {
               return (
                 // Client
-                <ClickComponent id={movie.id}>
+                <ClickComponent id={movie.id} key={`recoItem-${idx}`}>
                   {/* server */}
                   <MoiveItem {...movie} />
                 </ClickComponent>
@@ -42,9 +42,9 @@ const AllBooks = async () => {
       <h3>등록된 모든 영화</h3>
       <div className={classes.allList}>
         {!!datas
-          ? datas.map((movie) => {
+          ? datas.map((movie, idx) => {
               return (
-                <ClickComponent id={movie.id}>
+                <ClickComponent id={movie.id} key={`movieItem-${idx}`}>
                   {/* server */}
                   <MoiveItem {...movie} />
                 </ClickComponent>

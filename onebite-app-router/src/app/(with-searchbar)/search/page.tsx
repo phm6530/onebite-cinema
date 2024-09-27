@@ -5,19 +5,12 @@ import { withFetch } from "@/lib/fetch";
 import { MovieData } from "@/type/movie";
 import classes from "./search.module.scss";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-const SearchPage = async ({
-  searchParams,
-}: {
-  searchParams: { q: string };
-}) => {
-  //타입에러 방지
-  if (!searchParams.q) {
-    return false as never;
-  }
-
+const SearchResult = async ({ q }: { q: string }) => {
   const result = await withFetch<MovieData[]>(async () => {
-    const url = `${BASE_URL}/movie/search?q=${searchParams.q}`;
+    const url = `${BASE_URL}/movie/search?q=${q}`;
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     return fetch(url, {
       cache: "force-cache",
     });
@@ -39,6 +32,21 @@ const SearchPage = async ({
         );
       })}
     </div>
+  );
+};
+
+const SearchPage = ({ searchParams }: { searchParams: { q: string } }) => {
+  //타입에러 방지
+  if (!searchParams.q) {
+    return false as never;
+  }
+
+  return (
+    <>
+      <Suspense fallback={<>검색중 ..... </>} key={searchParams.q}>
+        <SearchResult q={searchParams.q || ""} />
+      </Suspense>
+    </>
   );
 };
 

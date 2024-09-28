@@ -6,11 +6,14 @@ import { MovieData } from "@/type/movie";
 import classes from "./search.module.scss";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import delay from "@/util/delay";
 
 const SearchResult = async ({ q }: { q: string }) => {
   const result = await withFetch<MovieData[]>(async () => {
     const url = `${BASE_URL}/movie/search?q=${q}`;
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    await delay(3000);
+
     return fetch(url, {
       cache: "force-cache",
     });

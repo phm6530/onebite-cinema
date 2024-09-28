@@ -4,6 +4,7 @@ import { MovieData } from "@/type/movie";
 import MoiveItem from "@/app/(with-searchbar)/_component/MovieItem";
 import ClickComponent from "@/_component/ClickComponent";
 import { withFetch } from "@/lib/fetch";
+import SkeletonMovieItem from "@/_component/skeleton/Skeleton-movieItem";
 
 // 추천
 const RecoBooks = async () => {
@@ -13,6 +14,7 @@ const RecoBooks = async () => {
 
   return (
     <div>
+      <SkeletonMovieItem />
       <h3>지금 가장 추천하는 영화</h3>
       <div className={classes.recoList}>
         {!!test

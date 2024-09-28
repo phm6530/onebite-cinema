@@ -1,15 +1,23 @@
+export class CustomError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 export const withFetch = async <T>(cb: () => Promise<Response>): Promise<T> => {
   try {
     const response = await cb();
     if (!response.ok) {
-      throw new Error(`HTTP 오류: ${response.status}`);
+      const errorRes = await response.json();
+      throw new CustomError(errorRes.message, response.status);
     }
-    return response.json();
+    return await response.json();
   } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
-    } else {
-      throw new Error("알 수 없는 에러");
+    if (error instanceof CustomError) {
+      throw error;
     }
+    throw new CustomError((error as Error).message || "네트워크 오류", 500);
   }
 };

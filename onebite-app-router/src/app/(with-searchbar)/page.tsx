@@ -11,24 +11,24 @@ import SkeletonMovies from "@/_component/skeleton/SkeletonMovies";
 
 // 추천
 const RecoBooks = async () => {
-  const result = await withFetch<MovieData[]>(async () => {
-    await delay(3000);
-    return fetch(`${BASE_URL}/movie/random`);
+  await delay(1000);
+  const data = await withFetch<MovieData[]>(() => {
+    return fetch(`${BASE_URL}/movie/random`, {
+      next: { revalidate: 3 },
+    });
   });
 
   return (
     <>
-      {!!result
-        ? result.map((movie, idx) => {
-            return (
-              // Client
-              <ClickComponent id={movie.id} key={`recoItem-${idx}`}>
-                {/* server */}
-                <MoiveItem {...movie} />
-              </ClickComponent>
-            );
-          })
-        : "문제가 있습니다."}
+      {data.map((movie, idx) => {
+        return (
+          // Client
+          <ClickComponent id={movie.id} key={`recoItem-${idx}`}>
+            {/* server */}
+            <MoiveItem {...movie} />
+          </ClickComponent>
+        );
+      })}
     </>
   );
 };
@@ -36,22 +36,20 @@ const RecoBooks = async () => {
 // 전체
 const AllBooks = async () => {
   const result = await withFetch<MovieData[]>(async () => {
-    await delay(4000);
+    await delay(2000);
     return fetch(`${BASE_URL}/movie`);
   });
 
   return (
     <>
-      {!!result
-        ? result.map((movie, idx) => {
-            return (
-              <ClickComponent id={movie.id} key={`movieItem-${idx}`}>
-                {/* server */}
-                <MoiveItem {...movie} />
-              </ClickComponent>
-            );
-          })
-        : "문제가 있습니다."}
+      {result.map((movie, idx) => {
+        return (
+          <ClickComponent id={movie.id} key={`movieItem-${idx}`}>
+            {/* server */}
+            <MoiveItem {...movie} />
+          </ClickComponent>
+        );
+      })}
     </>
   );
 };

@@ -4,18 +4,20 @@ import { BASE_URL } from "@/config/baseUrl";
 import { withFetch } from "@/lib/fetch";
 import { MovieData } from "@/type/movie";
 import classes from "./search.module.scss";
-import { notFound } from "next/navigation";
+
 import { Suspense } from "react";
+import delay from "@/util/delay";
+import SkeletonMovies from "@/_component/skeleton/SkeletonMovies";
 
 const SearchResult = async ({ q }: { q: string }) => {
   const result = await withFetch<MovieData[]>(async () => {
     const url = `${BASE_URL}/movie/search?q=${q}`;
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    await delay(2000);
+
     return fetch(url, {
       cache: "force-cache",
     });
-  }).catch((_) => {
-    return notFound();
   });
 
   if (result.length === 0) {
@@ -23,7 +25,7 @@ const SearchResult = async ({ q }: { q: string }) => {
   }
 
   return (
-    <div className={classes.searchWrap}>
+    <>
       {result.map((e, idx) => {
         return (
           <ClickComponent id={e.id} key={`seachMovie-${idx}`}>
@@ -31,7 +33,7 @@ const SearchResult = async ({ q }: { q: string }) => {
           </ClickComponent>
         );
       })}
-    </div>
+    </>
   );
 };
 
@@ -43,9 +45,11 @@ const SearchPage = ({ searchParams }: { searchParams: { q: string } }) => {
 
   return (
     <>
-      <Suspense fallback={<>검색중 ..... </>} key={searchParams.q}>
-        <SearchResult q={searchParams.q || ""} />
-      </Suspense>
+      <div className={classes.searchWrap}>
+        <Suspense fallback={<SkeletonMovies cnt={3} />} key={searchParams.q}>
+          <SearchResult q={searchParams.q || ""} />
+        </Suspense>
+      </div>
     </>
   );
 };

@@ -1,0 +1,27 @@
+@keyframes ani {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.SkeletonMoviesWrap {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+}
+
+.SkeletonMovieItem {
+  cursor: pointer;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #3d3d3d 0%, #303030 50%, #3d3d3d 100%);
+  background-size: 200% 200%; /* 배경 크기 설정 */
+
+  justify-content: center;
+  animation: ani 3s linear infinite;
+}

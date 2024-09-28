@@ -1,7 +1,16 @@
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .imgWrap {
   position: relative;
   flex: 1;
   cursor: pointer;
   aspect-ratio: 2/3;
   width: 100%;
+  animation: ani 0.5s ease;
 }

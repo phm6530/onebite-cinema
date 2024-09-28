@@ -4,65 +4,78 @@ import { MovieData } from "@/type/movie";
 import MoiveItem from "@/app/(with-searchbar)/_component/MovieItem";
 import ClickComponent from "@/_component/ClickComponent";
 import { withFetch } from "@/lib/fetch";
-import SkeletonMovieItem from "@/_component/skeleton/Skeleton-movieItem";
+
+import delay from "@/util/delay";
+import { Suspense } from "react";
+import SkeletonMovies from "@/_component/skeleton/SkeletonMovies";
 
 // 추천
 const RecoBooks = async () => {
-  const test = await withFetch<MovieData[]>(async () => {
+  const result = await withFetch<MovieData[]>(async () => {
+    await delay(3000);
     return fetch(`${BASE_URL}/movie/random`);
   });
 
   return (
-    <div>
-      <SkeletonMovieItem />
-      <h3>지금 가장 추천하는 영화</h3>
-      <div className={classes.recoList}>
-        {!!test
-          ? test.map((movie, idx) => {
-              return (
-                // Client
-                <ClickComponent id={movie.id} key={`recoItem-${idx}`}>
-                  {/* server */}
-                  <MoiveItem {...movie} />
-                </ClickComponent>
-              );
-            })
-          : "문제가 있습니다."}
-      </div>
-    </div>
+    <>
+      {!!result
+        ? result.map((movie, idx) => {
+            return (
+              // Client
+              <ClickComponent id={movie.id} key={`recoItem-${idx}`}>
+                {/* server */}
+                <MoiveItem {...movie} />
+              </ClickComponent>
+            );
+          })
+        : "문제가 있습니다."}
+    </>
   );
 };
 
 // 전체
 const AllBooks = async () => {
-  const datas = await withFetch<MovieData[]>(async () => {
+  const result = await withFetch<MovieData[]>(async () => {
+    await delay(4000);
     return fetch(`${BASE_URL}/movie`);
   });
 
   return (
-    <div>
-      <h3>등록된 모든 영화</h3>
-      <div className={classes.allList}>
-        {!!datas
-          ? datas.map((movie, idx) => {
-              return (
-                <ClickComponent id={movie.id} key={`movieItem-${idx}`}>
-                  {/* server */}
-                  <MoiveItem {...movie} />
-                </ClickComponent>
-              );
-            })
-          : "문제가 있습니다."}
-      </div>
-    </div>
+    <>
+      {!!result
+        ? result.map((movie, idx) => {
+            return (
+              <ClickComponent id={movie.id} key={`movieItem-${idx}`}>
+                {/* server */}
+                <MoiveItem {...movie} />
+              </ClickComponent>
+            );
+          })
+        : "문제가 있습니다."}
+    </>
   );
 };
 
-const Home = async () => {
+const Home = () => {
   return (
     <div className={classes.mainWrap}>
-      <RecoBooks />
-      <AllBooks />
+      <section>
+        <h3>지금 가장 추천하는 영화</h3>
+        <div className={classes.recoList}>
+          <Suspense fallback={<SkeletonMovies cnt={3} />}>
+            <RecoBooks />
+          </Suspense>
+        </div>
+      </section>
+
+      <section>
+        <h3>등록된 모든 영화</h3>
+        <div className={classes.allList}>
+          <Suspense fallback={<SkeletonMovies cnt={10} />}>
+            <AllBooks />
+          </Suspense>
+        </div>
+      </section>
     </div>
   );
 };

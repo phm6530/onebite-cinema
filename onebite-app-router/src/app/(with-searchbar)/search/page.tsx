@@ -12,7 +12,7 @@ const SearchResult = async ({ q }: { q: string }) => {
   const result = await withFetch<MovieData[]>(async () => {
     const url = `${BASE_URL}/movie/search?q=${q}`;
 
-    await delay(3000);
+    await delay(4000);
 
     return fetch(url, {
       cache: "force-cache",

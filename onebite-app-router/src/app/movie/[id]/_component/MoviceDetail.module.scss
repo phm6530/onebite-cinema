@@ -1,0 +1,56 @@
+@keyframes ani {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.backDrop {
+  height: 450px;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center center;
+  backdrop-filter: blur(120px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: "";
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgb(0, 0, 0, 0.5);
+    position: absolute;
+  }
+
+  .imgWrap {
+    width: 250px;
+    aspect-ratio: 2/3;
+    position: relative;
+    z-index: 5;
+    opacity: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 0 1rem;
+    animation: ani 2s ease forwards;
+  }
+}
+
+.summry {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  line-height: 1.4rem;
+  margin-top: 3rem;
+}
+
+.summry > p:first-of-type {
+  opacity: 0.5;
+}

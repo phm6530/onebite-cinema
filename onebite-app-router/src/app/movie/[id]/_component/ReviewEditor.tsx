@@ -1,23 +1,40 @@
+import postReviewAction from "@/actions/create-review.action";
 import classes from "./ReviewEditor.module.scss";
 
 type ReviewEditorProps = {
   id: string;
 };
 
-const ReviewEditor: React.FC<ReviewEditorProps> = ({ id }) => {
-  const postReviewAction = async (formData: FormData) => {
-    "use server";
-    const user = formData.get("user")?.toString();
-    const contents = formData.get("contents")?.toString();
-    console.log(user, contents);
-  };
+export interface ReviewData {
+  id: number;
+  content: string;
+  author: string;
+  createdAt: string;
+  movieId: number;
+}
 
+const ReviewEditor: React.FC<ReviewEditorProps> = ({ id }) => {
   return (
-    <section>
+    <section className={classes.ReviewFormSection}>
+      <h1>Review</h1>
       <form action={postReviewAction}>
-        <input type="text" name="user" placeholder="작성자" />
-        <input type="text" name="contents" placeholder="리뷰 내용" />
-        <button>test</button>
+        <input type="hidden" name="movieId" value={id} />
+        <input
+          type="text"
+          required
+          name="author"
+          placeholder="작성자"
+          autoComplete="off"
+        />
+        <input
+          type="text"
+          required
+          name="content"
+          placeholder="리뷰 내용"
+          className={classes.reviewContent}
+          autoComplete="off"
+        />
+        <button className={classes.deleteBtn}>작성하기</button>
       </form>
     </section>
   );

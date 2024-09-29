@@ -1,0 +1,45 @@
+$red: rgb(185, 27, 27);
+
+.deleteBtn {
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: auto;
+  background: $red;
+
+  &:hover {
+    background: lighten($red, 10);
+  }
+}
+
+.ReviewFormSection {
+  margin-top: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 50px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    padding: 1rem;
+    outline: 1px solid rgb(37 37 37);
+    border-radius: 5px;
+    &:focus {
+      outline: 1px solid rgb(112, 154, 243);
+    }
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+
+    .reviewContent {
+      grid-column: 1 / -1;
+    }
+
+    .deleteBtn {
+      grid-column: 2;
+    }
+  }
+}

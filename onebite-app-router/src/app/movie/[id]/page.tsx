@@ -6,6 +6,7 @@ import { MovieData } from "@/type/movie";
 import { notFound } from "next/navigation";
 import MovieDetail from "@/app/movie/[id]/_component/MovieDetail";
 import ReviewEditor from "@/app/movie/[id]/_component/ReviewEditor";
+import ReviewList from "@/app/movie/[id]/_component/ReviewList";
 
 type MoviePageProps = {
   params: { id: string };
@@ -51,6 +52,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ params }) => {
     <>
       <MovieDetail id={params.id} />
       <ReviewEditor id={params.id} />
+      <ReviewList id={params.id} />
     </>
   );
 };

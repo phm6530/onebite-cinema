@@ -18,7 +18,6 @@ const postReviewAction = async (state: any, formData: FormData) => {
   }
 
   await withFetch(async () => {
-    await delay(2000);
     return fetch(`${BASE_URL}/review`, {
       method: "POST",
       body: JSON.stringify({

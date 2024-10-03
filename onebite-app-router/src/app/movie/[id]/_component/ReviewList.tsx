@@ -30,7 +30,7 @@ const ReviewList: React.FC<ReviewListProps> = async ({ id }) => {
       style={{ display: "flex", flexDirection: "column", gap: "30px" }}
     >
       {result.map((item, idx) => {
-        return <ReviewItem key={`movieItem-${idx}`} {...item} />;
+        return <ReviewItem key={`movieItem-${idx}`} {...item} reviewId={id} />;
       })}
     </section>
   );

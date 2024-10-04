@@ -3,18 +3,27 @@ import MoiveItem from "@/app/(with-searchbar)/_component/MovieItem";
 import { BASE_URL } from "@/config/baseUrl";
 import { withFetch } from "@/lib/fetch";
 import { MovieData } from "@/type/movie";
-import classes from "./search.module.scss";
-
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+import classes from "./search.module.scss";
 import delay from "@/util/delay";
 import SkeletonMovies from "@/_component/skeleton/SkeletonMovies";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { q: string };
+}): Promise<Metadata> {
+  return {
+    title: `한입시네마 - 검색 : ${searchParams.q}`,
+  };
+}
 
 const SearchResult = async ({ q }: { q: string }) => {
   const result = await withFetch<MovieData[]>(async () => {
     const url = `${BASE_URL}/movie/search?q=${q}`;
-
     await delay(2000);
-
     return fetch(url, {
       cache: "force-cache",
     });

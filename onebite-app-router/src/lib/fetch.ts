@@ -13,9 +13,10 @@ export const withFetch = async <T>(cb: () => Promise<Response>): Promise<T> => {
       const errorRes = await response.json();
       throw new CustomError(errorRes.message, response.status);
     }
-    return await response.json();
+    return response.json();
   } catch (error) {
     if (error instanceof CustomError) {
+      console.log(error);
       throw error;
     }
     throw new CustomError((error as Error).message || "네트워크 오류", 500);

@@ -1,5 +1,8 @@
+"use client";
+
 import postReviewAction from "@/actions/create-review.action";
 import classes from "./ReviewEditor.module.scss";
+import { useActionState, useEffect } from "react";
 
 type ReviewEditorProps = {
   id: string;
@@ -14,10 +17,18 @@ export interface ReviewData {
 }
 
 const ReviewEditor: React.FC<ReviewEditorProps> = ({ id }) => {
+  const [state, formAction, isPending] = useActionState(postReviewAction, null);
+
+  useEffect(() => {
+    if (state && !state.status) {
+      alert(state.error);
+    }
+  }, [state]);
+
   return (
     <section className={classes.ReviewFormSection}>
       <h1>Review</h1>
-      <form action={postReviewAction}>
+      <form action={formAction}>
         <input type="hidden" name="movieId" value={id} />
         <input
           type="text"
@@ -34,7 +45,9 @@ const ReviewEditor: React.FC<ReviewEditorProps> = ({ id }) => {
           className={classes.reviewContent}
           autoComplete="off"
         />
-        <button className={classes.deleteBtn}>작성하기</button>
+        <button className={classes.deleteBtn} disabled={isPending}>
+          작성하기
+        </button>
       </form>
     </section>
   );

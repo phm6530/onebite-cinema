@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.scss";
 import Grid from "@/_component/Grid";
 import GlobalNav from "@/_component/global-nav";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { ThemeProvider } from "@/_component/theme-provider";
 
 const pretendard = localFont({
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: ReactNode }>) {
+  modal,
+}: Readonly<{ children: ReactNode; modal: ReactNode }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={`${pretendard.variable}`}>
@@ -28,6 +29,8 @@ export default function RootLayout({
             {children}
           </Grid.center>
         </ThemeProvider>
+        {modal}
+        <div id="modal-root"></div>
       </body>
     </html>
   );

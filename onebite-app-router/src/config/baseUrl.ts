@@ -1,2 +1,2 @@
-// export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-export const BASE_URL = "http://localhost:12345";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// export const BASE_URL = "http://localhost:12345";

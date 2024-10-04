@@ -14,6 +14,11 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: "한입 - 시네마",
   description: "한입 시네마 😎",
+  openGraph: {
+    title: "한입 - 시네마",
+    description: "한입 시네마 😎",
+    images: ["/thumbnail.png"],
+  },
 };
 
 export default function RootLayout({
